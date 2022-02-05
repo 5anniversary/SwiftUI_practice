@@ -20,6 +20,9 @@ struct ContentView: View {
             ZStack {
                 List(items, id: \.id) { item in
                     TodoItemView(item)
+                        .onTapGesture(count: 1) {
+                            model.togleContent(contentID: item.id)
+                        }
                 }
                 .navigationTitle("Todo")
                 .navigationBarItems(

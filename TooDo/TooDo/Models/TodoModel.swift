@@ -6,17 +6,26 @@
 //
 
 import Foundation
+import Combine
 
 final class TodoModel: ObservableObject {
-    var contents: [Todo] = [
-        .init(title: "todo first", isDone: Bool.random(), tag: [], dueDate: Date()),
-        .init(title: "todo second", isDone: Bool.random(), tag: [], dueDate: Date()),
-        .init(title: "todo third", isDone: Bool.random(), tag: [], dueDate: Date()),
-        .init(title: "todo fourth", isDone: Bool.random(), tag: [], dueDate: Date()),
-        .init(title: "todo fifth", isDone: Bool.random(), tag: [], dueDate: Date())
+    @Published var contents: [Todo] = [
+        Todo(title: "todo first", isDone: true, tag: [], dueDate: Date()),
+        Todo(title: "todo second", isDone: false, tag: [], dueDate: Date()),
+        Todo(title: "todo third", isDone: true, tag: [], dueDate: Date()),
+        Todo(title: "todo fourth", isDone: false, tag: [], dueDate: Date()),
+        Todo(title: "todo fifth", isDone: true, tag: [], dueDate: Date())
     ]
 
     init() { }
+
+    func togleContent(contentID: UUID) {
+        contents.enumerated().forEach { index, item in
+            if item.id == contentID {
+                contents[index].isDone.toggle()
+            }
+        }
+    }
 }
 
 struct Todo {
